@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{margin:0;padding:0;overflow-x:hidden}
 :root{
   --purple:#7A4A9E;--purple-light:#9B6EC0;--purple-pale:rgba(122,74,158,0.09);
   --coral:#D05060;--teal:#0F8A6A;--gold:#E0A830;
@@ -407,7 +408,7 @@ section{padding:60px 24px}
 .cta-fine{color:#6B5A80;font-size:13px;margin-top:22px;position:relative;z-index:1}
 
 /* FOOTER */
-footer{background:var(--dark);border-top:1px solid rgba(122,74,158,.18);padding:44px 28px 32px}
+footer{background:var(--dark);border-top:1px solid rgba(122,74,158,.18);padding:44px 28px 20px}
 .footer-in{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:28px}
 .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .footer-logo-img{width:36px;height:36px;border-radius:50%;overflow:hidden;background:#0F0A20;flex-shrink:0}
@@ -417,7 +418,7 @@ footer{background:var(--dark);border-top:1px solid rgba(122,74,158,.18);padding:
 .footer-links{display:flex;gap:22px;flex-wrap:wrap}
 .footer-links a{font-size:13px;color:#8A7AA0;text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:white}
-.footer-bottom{text-align:center;padding-top:28px;margin-top:28px;
+.footer-bottom{text-align:center;padding-top:20px;margin-top:20px;padding-bottom:8px;
   border-top:1px solid rgba(122,74,158,.12);font-size:12px;color:#4A3A60}
 
 /* FADE IN */
@@ -1014,6 +1015,7 @@ window.addEventListener('load', reportHeight);
 window.addEventListener('resize', reportHeight);
 setTimeout(reportHeight, 500);
 setTimeout(reportHeight, 1500);
+setTimeout(reportHeight, 3000);
 </script>
 </body>
 </html>
