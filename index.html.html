@@ -92,7 +92,7 @@ nav{position:sticky;top:0;left:0;right:0;z-index:100;height:68px;
 .hdiv{width:1px;height:44px;background:var(--border)}
 
 /* PHONES */
-.phones-wrap{max-width:1100px;margin:0 auto;padding:40px 24px 72px;position:relative}
+.phones-wrap{max-width:1100px;margin:0 auto;padding:32px 24px 48px;position:relative}
 .phones-row{display:flex;justify-content:center;align-items:flex-start;gap:16px;position:relative}
 
 /* Grow background */
@@ -451,6 +451,9 @@ footer{background:var(--dark);border-top:1px solid rgba(122,74,158,.18);padding:
   .pgrid{grid-template-columns:1fr}
   .footer-in{flex-direction:column}
   .footer-links{flex-direction:column;gap:14px}
+  footer{padding:32px 20px 12px}
+  .footer-bottom{padding-top:14px;margin-top:14px;padding-bottom:4px}
+  .phones-mobile{padding-bottom:0}
 }
 @media(max-width:480px){
   nav{padding:0 16px}
@@ -685,7 +688,7 @@ WIXEMBED: Use this code in Wix HTML embed:
       </div>
     </div>
     </div>
-    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:0;padding-bottom:0">
       <div style="background:white;border-radius:12px;padding:8px 16px;box-shadow:0 4px 16px rgba(15,10,32,0.09),0 0 0 1px rgba(122,74,158,0.1);font-size:13px;font-weight:600;color:#1A1232;display:flex;align-items:center;gap:8px"><span style="width:6px;height:6px;border-radius:50%;background:#0F8A6A;flex-shrink:0"></span>21-day streak 🔥</div>
       <div style="background:white;border-radius:12px;padding:8px 16px;box-shadow:0 4px 16px rgba(15,10,32,0.09),0 0 0 1px rgba(122,74,158,0.1);font-size:13px;font-weight:600;color:#1A1232;display:flex;align-items:center;gap:8px"><span style="width:6px;height:6px;border-radius:50%;background:#D05060;flex-shrink:0"></span>2 of 3 done today ✓</div>
     </div>
@@ -979,11 +982,18 @@ WIXEMBED: Use this code in Wix HTML embed:
 <script>
 function smoothTo(id) {
   var el = document.getElementById(id);
-  if (el) {
-    var navH = 72;
-    var top = el.getBoundingClientRect().top + window.pageYOffset - navH;
-    window.scrollTo({ top: top, behavior: 'smooth' });
-  }
+  if (!el) return;
+  var rect = el.getBoundingClientRect();
+  var elTop = rect.top + window.pageYOffset;
+  // Try scrolling iframe itself first (works if iframe has scrolling)
+  try { window.scrollTo({ top: elTop - 80, behavior: 'smooth' }); } catch(e) {}
+  // Also tell parent Wix page to scroll (for scrolling="no" iframes)
+  try {
+    window.parent.postMessage({
+      type: 'scrollTo',
+      offset: elTop - 80
+    }, '*');
+  } catch(e) {}
 }
 function setPricing(mode){
   const isYr=mode==='yr';
