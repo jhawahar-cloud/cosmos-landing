@@ -457,6 +457,12 @@ footer{background:var(--dark);border-top:1px solid rgba(122,74,158,.18);padding:
 </style>
 </head>
 <body>
+<!--
+WIXEMBED: Use this code in Wix HTML embed:
+<style>*{margin:0;padding:0}iframe{display:block;width:100%;border:none}</style>
+<iframe id="ci" src="https://cosmos-landing-zeta.vercel.app/" scrolling="no" style="width:100%;height:10000px;border:none"></iframe>
+(add resize script in Wix embed — see below)
+-->
 
 <!-- NAV -->
 <nav>
@@ -972,11 +978,11 @@ footer{background:var(--dark);border-top:1px solid rgba(122,74,158,.18);padding:
 <script>
 function smoothTo(id) {
   var el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  return false;
-});
+  if (el) {
+    var navH = 72;
+    var top = el.getBoundingClientRect().top + window.pageYOffset - navH;
+    window.scrollTo({ top: top, behavior: 'smooth' });
   }
-  return false;
 }
 function setPricing(mode){
   const isYr=mode==='yr';
@@ -998,6 +1004,16 @@ const obs=new IntersectionObserver(entries=>{
 document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
 const trow=document.getElementById('trow');
 trow.parentElement.appendChild(trow.cloneNode(true));
+
+// Auto-report height to parent Wix iframe so it resizes correctly
+function reportHeight() {
+  var h = document.documentElement.scrollHeight;
+  try { window.parent.postMessage({ type: 'iframeHeight', height: h }, '*'); } catch(e) {}
+}
+window.addEventListener('load', reportHeight);
+window.addEventListener('resize', reportHeight);
+setTimeout(reportHeight, 500);
+setTimeout(reportHeight, 1500);
 </script>
 </body>
 </html>
